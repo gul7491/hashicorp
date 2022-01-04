@@ -8,7 +8,7 @@ source "amazon-ebs" "ubuntu" {
       virtualization-type = "hvm"
     }
     most_recent = true
-    owners      = ["099720109477"]
+    owners      = ["amazon"]
 
   }
   ssh_username = "ubuntu"
@@ -18,6 +18,7 @@ source "amazon-ebs" "ubuntu" {
     "OS_Version"  = "Ubuntu 20.04"
     "Release"     = "Latest"
     "Created-by"  = "Packer"
+    "lifecycle"   = "authorized"
   }
 
   vault_aws_engine {
@@ -30,7 +31,7 @@ build {
   sources = ["source.amazon-ebs.ubuntu"]
 
   provisioner "shell" {
-    inline = ["echo hi"]
+    inline = ["docker-install.sh"]
   }
 
 }
